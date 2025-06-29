@@ -18,7 +18,7 @@ const About = () => {
 
   return (
     <motion.section
-      className="mb-28 max-w-[45rem] text-center leading-8 sm:mb-40"
+      className="mb-28 max-w-[45rem] text-center leading-8 sm:mb-40 scroll-mt-35"
       initial="hidden"
       animate={controls}
       variants={{
@@ -26,6 +26,7 @@ const About = () => {
         visible: { opacity: 1, y: 0, transition: { delay: 0.3 } },
       }}
       ref={ref}
+      id="about"
     >
       <SectionHeading>About Me</SectionHeading>
       <p className="mb-3">
