@@ -4,17 +4,20 @@ import React from "react";
 import { SectionHeading } from "./section-heading";
 import { motion, useAnimationControls, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
+import { useActiveSectionContext } from "@/context/active-session";
 
 const About = () => {
   const controls = useAnimationControls();
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { amount: 0.75 });
+  const { setActiveSection, timeOfLastClick } = useActiveSectionContext();
 
   useEffect(() => {
-    if (isInView) {
+    if (isInView && Date.now() - timeOfLastClick > 1000) {
       controls.start("visible");
+      setActiveSection("About");
     }
-  }, [isInView, controls]);
+  }, [isInView, controls, setActiveSection, timeOfLastClick]);
 
   return (
     <motion.section

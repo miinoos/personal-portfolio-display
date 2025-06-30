@@ -1,19 +1,31 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import profileImage from "@/public/profile.jpg";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { BsArrowRight, BsLinkedin } from "react-icons/bs";
 import Link from "next/link";
 import { HiDownload } from "react-icons/hi";
 import { FaGithubSquare } from "react-icons/fa";
+import { useActiveSectionContext } from "@/context/active-session";
 
 const Intro = () => {
+  const { setActiveSection, timeOfLastClick } = useActiveSectionContext();
+  const ref = useRef(null);
+  const inView = useInView(ref, { amount: 0.5 });
+
+  useEffect(() => {
+    if (inView && Date.now() - timeOfLastClick > 1000) {
+      setActiveSection("Home");
+    }
+  }, [inView, setActiveSection, timeOfLastClick]);
+
   return (
     <section
       id="home"
       className="mb-28 max-w-[50rem] text-center sm:mb-0 scroll-mt-[100rem]"
+      ref={ref}
     >
       <div className="flex items-center justify-center">
         <div className="relative">
